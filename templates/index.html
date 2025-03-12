@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Design AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Fashion Design AI</h1>
+
+    <!-- Size Selection -->
+    <form action="/describe_outfit" method="POST">
+        <label for="size">Select your size:</label>
+        <select name="size" id="size">
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+        </select>
+        <button type="submit">Describe Outfit</button>
+    </form>
+    {% if description %}
+    <p>{{ description }}</p>
+    {% endif %}
+
+    <!-- Design Generation -->
+    <h2>Generate Design</h2>
+    <form action="/generate_design" method="POST">
+        <label for="style">Style:</label>
+        <select name="style" id="style">
+            <option value="Casual">Casual</option>
+            <option value="Formal">Formal</option>
+            <option value="Party">Party</option>
+            <option value="Business">Business</option>
+            <option value="Sporty">Sporty</option>
+        </select>
+        <label for="color">Color:</label>
+        <select name="color" id="color">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Green">Green</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Yellow">Yellow</option>
+            <option value="wine">wine</option>
+        </select>
+        <label for="fabric">Fabric:</label>
+        <select name="fabric" id="fabric">
+            <option value="Cotton">Cotton</option>
+            <option value="Silk">Silk</option>
+            <option value="Denim">Denim</option>
+            <option value="Leather">Leather</option>
+            <option value="Linen">Linen</option>
+        </select>
+        <button type="submit">Generate Design</button>
+    </form>
+    {% if design %}
+    <p>{{ design['Description'] }}</p>
+    {% endif %}
+
+    <!-- Modify Design -->
+    <h2>Modify Design</h2>
+    <form action="/modify_design" method="POST">
+        <label for="design_index">Design Index:</label>
+        <input type="number" name="design_index" id="design_index" min="0">
+        <label for="style">New Style:</label>
+        <input type="text" name="style">
+        <label for="color">New Color:</label>
+        <input type="text" name="color">
+        <label for="fabric">New Fabric:</label>
+        <input type="text" name="fabric">
+        <button type="submit">Modify Design</button>
+    </form>
+    {% if modified_design %}
+    <p>{{ modified_design['Description'] }}</p>
+    {% endif %}
+
+    <!-- Create Collection -->
+    <h2>Create Collection</h2>
+    <form action="/create_collection" method="POST">
+        <button type="submit">Create Collection</button>
+    </form>
+    {% if collection %}
+    <ul>
+        {% for design in collection %}
+        <li>{{ design['Description'] }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
+
